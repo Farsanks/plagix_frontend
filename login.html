@@ -1,0 +1,134 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Plagix Pro - Login & Signup</title>
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet"/>
+  <style>
+    body {
+      background: linear-gradient(135deg, #2c3e50, #3498db);
+      color: white;
+      min-height: 100vh;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-family: 'Segoe UI', sans-serif;
+    }
+    .auth-container {
+      background: white;
+      color: black;
+      border-radius: 16px;
+      max-width: 900px;
+      width: 100%;
+      display: flex;
+      overflow: hidden;
+      box-shadow: 0 0 30px rgba(0,0,0,0.3);
+    }
+    .left, .right {
+      flex: 1;
+      padding: 40px;
+    }
+    .left {
+      background: #f8f9fa;
+    }
+    .form-group {
+      margin-bottom: 15px;
+    }
+    .toggle-btn {
+      background: none;
+      border: none;
+      color: #007bff;
+      text-decoration: underline;
+      cursor: pointer;
+    }
+    .btn-social {
+      width: 100%;
+      margin-bottom: 10px;
+    }
+    .subject-group {
+      display: none;
+    }
+  </style>
+</head>
+<body>
+
+<div class="auth-container">
+  <!-- LOGIN -->
+  <div class="left" id="loginBox">
+    <h3 class="mb-4 text-primary">🔐 Login to Plagix Pro (Demo)</h3>
+    <div class="form-group">
+      <label>Username</label>
+      <input type="text" id="loginUsername" class="form-control" placeholder="demouser">
+    </div>
+    <div class="form-group">
+      <label>Password</label>
+      <input type="password" id="loginPassword" class="form-control" placeholder="********">
+    </div>
+    <button class="btn btn-primary w-100 mb-3" onclick="login()">Login</button>
+    <div class="text-center mt-3">
+      Don’t have an account? <button class="toggle-btn" onclick="toggleAuth('signup')">Sign up</button>
+    </div>
+  </div>
+
+  <!-- SIGNUP -->
+  <div class="right d-none" id="signupBox">
+    <h3 class="mb-4 text-success">📝 Create Demo Account</h3>
+    <div class="form-group">
+      <label>Username</label>
+      <input type="text" id="signupUsername" class="form-control">
+    </div>
+    <div class="form-group">
+      <label>Password</label>
+      <input type="password" id="signupPassword" class="form-control">
+    </div>
+    <div class="form-group">
+      <label>Role</label>
+      <select id="signupRole" class="form-select" onchange="toggleSubjectDropdown()">
+        <option value="teacher">Teacher</option>
+        <option value="student">Student</option>
+      </select>
+    </div>
+    <div class="form-group subject-group" id="subjectGroup">
+      <label>Subject</label>
+      <select id="subject" class="form-select">
+        <option value="Computer Science">Computer Science</option>
+        <option value="Mathematics">Mathematics</option>
+        <option value="English">English</option>
+      </select>
+    </div>
+    <button class="btn btn-success w-100 mb-3" onclick="signup()">Sign up</button>
+    <div class="text-center mt-3">
+      Already have an account? <button class="toggle-btn" onclick="toggleAuth('login')">Login</button>
+    </div>
+  </div>
+</div>
+
+<script>
+function toggleAuth(mode) {
+  document.getElementById('signupBox').classList.toggle('d-none', mode !== 'signup');
+  document.getElementById('loginBox').classList.toggle('d-none', mode !== 'login');
+}
+
+function toggleSubjectDropdown() {
+  const role = document.getElementById('signupRole').value;
+  document.getElementById('subjectGroup').style.display = role === 'teacher' ? 'block' : 'none';
+}
+
+function login() {
+  localStorage.setItem("token", "demo-token");
+  localStorage.setItem("username", document.getElementById("loginUsername").value || "demo");
+  alert("✅ Demo Login Successful!");
+  window.location.href = "index.html";
+}
+
+function signup() {
+  localStorage.setItem("token", "demo-token");
+  localStorage.setItem("username", document.getElementById("signupUsername").value || "demo");
+  alert("✅ Demo Signup Successful!");
+  window.location.href = "index.html";
+}
+</script>
+</body>
+</html>
